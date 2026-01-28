@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+  <head>
+    <title>CRUD Productos</title>
+  </head>
+  <body>
+    <h1>Productos</h1>
+
+    <a href="/crear">Agregar producto</a>
+
+    <div>
+      {% for p in productos %}
+      <div>
+        <div><strong>ID:</strong> {{ p[0] }}</div>
+        <div><strong>Nombre:</strong> {{ p[1] }}</div>
+        <div><strong>Precio:</strong> ${{ p[2] }}</div>
+        <div>
+          <a href="/editar/{{ p[0] }}">Editar</a>
+          <a
+            href="/eliminar/{{ p[0] }}"
+            onclick="return confirm('Eliminar producto?');"
+            >🗑 Eliminar</a
+          >
+        </div>
+      </div>
+      {% else %}
+      <p>No hay productos.</p>
+      {% endfor %}
+    </div>
+    <a href="/">Volver</a>
+  </body>
+</html>
