@@ -14,19 +14,22 @@
         <div><strong>ID:</strong> {{ p[0] }}</div>
         <div><strong>Nombre:</strong> {{ p[1] }}</div>
         <div><strong>Precio:</strong> ${{ p[2] }}</div>
+        <div><strong>Stock:</strong> {{ p[3] }}</div>
+        <div><strong>Activo:</strong> {{ 'Sí' if p[4] else 'No' }}</div>
+
         <div>
           <a href="/editar/{{ p[0] }}">Editar</a>
-          <a
-            href="/eliminar/{{ p[0] }}"
-            onclick="return confirm('Eliminar producto?');"
-            >🗑 Eliminar</a
-          >
+          <form action="/eliminar/{{ p[0] }}" method="POST">
+            <button onclick="return confirm('Eliminar producto?');">
+              🗑 Eliminar
+            </button>
+          </form>
         </div>
       </div>
       {% else %}
       <p>No hay productos.</p>
       {% endfor %}
     </div>
-    <a href="/">Volver</a>
+    <a href="/index">Volver</a>
   </body>
 </html>
