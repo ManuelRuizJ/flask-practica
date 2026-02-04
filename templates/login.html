@@ -5,20 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Inicio de sesión</title>
   </head>
-  <body>
-    {%- if error -%}
-    <p>{{ error }}</p>
-    {%- endif -%}
+  <body
+    style="
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #1a1a2e;
+      font-family: &quot;Segoe UI&quot;, sans-serif;
+    "
+  >
+    <div
+      style="
+        background-color: #16213e;
+        padding: 40px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        width: 100%;
+        max-width: 320px;
+        text-align: center;
+      "
+    >
+      <h2
+        style="
+          color: white;
+          margin-top: 0;
+          margin-bottom: 25px;
+          font-weight: 300;
+        "
+      >
+        Acceso al Sistema
+      </h2>
 
-    <form action="{{ url_for('login') }}" method="post">
-      <input type="text" name="username" placeholder="Usuario" required />
-      <input
-        type="password"
-        name="password"
-        placeholder="Contraseña"
-        required
-      />
-      <button type="submit">Iniciar Sesión</button>
-    </form>
+      {%- if error -%}
+      <p
+        style="
+          color: #ff4d4d;
+          background-color: rgba(255, 77, 77, 0.1);
+          padding: 10px;
+          border-radius: 5px;
+          font-size: 0.85rem;
+          margin-bottom: 20px;
+          border: 1px solid #ff4d4d;
+        "
+      >
+        {{ error }}
+      </p>
+      {%- endif -%}
+
+      <form
+        action="{{ url_for('login') }}"
+        method="post"
+        style="display: flex; flex-direction: column"
+      >
+        <input
+          type="text"
+          name="username"
+          placeholder="Usuario"
+          required
+          style="
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #0f3460;
+            background-color: #1a1a2e;
+            color: white;
+            outline: none;
+          "
+        />
+
+        <input
+          type="password"
+          name="password"
+          placeholder="Contraseña"
+          required
+          style="
+            padding: 12px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            border: 1px solid #0f3460;
+            background-color: #1a1a2e;
+            color: white;
+            outline: none;
+          "
+        />
+
+        <button
+          type="submit"
+          style="
+            padding: 12px;
+            border-radius: 5px;
+            border: none;
+            background-color: #e94560;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+            font-size: 1rem;
+          "
+        >
+          Iniciar Sesión
+        </button>
+      </form>
+
+      <p style="margin-top: 20px; font-size: 0.8rem; color: #555">
+        &copy; 2026 Sistema de Gestión
+      </p>
+    </div>
   </body>
 </html>
