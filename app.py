@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import db
 
 app = Flask(__name__)
-app.secret_key = "clave_secreta"
+app.secret_key = "s"
 
 
 db.crear_tabla()
