@@ -21,6 +21,13 @@ def crear_tabla():
         )
     """)
 
+def agregar_categoria():
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        ALTER TABLE productos
+            ADD categoria TEXT DEFAULT NULL
+    """)
     conn.commit()
     conn.close()
-

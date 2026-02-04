@@ -6,6 +6,7 @@ app.secret_key = "clave_secreta"
 
 
 db.crear_tabla()
+# db.agregar_categoria()
 
 
 def login_requerido():
@@ -44,14 +45,15 @@ def crear():
         precio = float(request.form['precio'])
         stock = int(request.form['stock'])
         activo = 1 if request.form.get('activo') else 0
+        categoria = request.form['categoria']
         conn = db.get_connection()
         cursor = conn.cursor()
 
         if nombre == '' or precio < 0 or stock < 0:
             return "Datos inválidos", 400
         cursor.execute(
-            "INSERT INTO productos (nombre, precio, stock, activo) VALUES (?, ?, ?, ?)",
-            (nombre, precio, stock, activo)
+            "INSERT INTO productos (nombre, precio, stock, activo, categoria) VALUES (?, ?, ?, ?, ?)",
+            (nombre, precio, stock, activo, categoria)
         )
         conn.commit()
         conn.close()
@@ -73,10 +75,11 @@ def editar(id):
         precio = float(request.form['precio'])
         stock = int(request.form['stock'])
         activo = 1 if request.form.get('activo') else 0
+        categoria = request.form['categoria']
 
         cursor.execute(
-            "UPDATE productos SET nombre=?, precio=?, stock=?, activo=? WHERE id=?",
-            (nombre, precio, stock, activo, id)
+            "UPDATE productos SET nombre=?, precio=?, stock=?, activo=?, categoria=? WHERE id=?",
+            (nombre, precio, stock, activo, categoria, id)
         )
 
         conn.commit()
@@ -112,14 +115,15 @@ def agregar():
         precio = float(request.form['precio'])
         stock = int(request.form['stock'])
         activo = 1 if request.form.get('activo') else 0
+        categoria = request.form['categoria']
         conn = db.get_connection()
         cursor = conn.cursor()
 
         if nombre == '' or precio < 0 or stock < 0:
             return "Datos inválidos", 400
         cursor.execute(
-            "INSERT INTO productos (nombre, precio, stock, activo) VALUES (?, ?, ?, ?)",
-            (nombre, precio, stock, activo)
+            "INSERT INTO productos (nombre, precio, stock, activo, categoria) VALUES (?, ?, ?, ?, ?)",
+            (nombre, precio, stock, activo, categoria)
         )
         conn.commit()
         conn.close()
