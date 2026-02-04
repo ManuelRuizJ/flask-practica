@@ -1,33 +1,22 @@
 import sqlite3
-from flask import g
-
-DATABASE = 'productos.db'
 
 def get_connection():
-    return sqlite3.connect(DATABASE)
-
+    conn = sqlite3.connect('productos.db')
+    conn.row_factory = sqlite3.Row
+    return conn
 
 def crear_tabla():
     conn = get_connection()
     cursor = conn.cursor()
-
-    cursor.execute("""
+    cursor.execute('''
         CREATE TABLE IF NOT EXISTS productos (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nombre TEXT NOT NULL,
-            precio REAL NOT NULL CHECK (precio >= 0),
-            stock INTEGER NOT NULL DEFAULT 0 CHECK (stock >= 0),
-            activo BOOLEAN NOT NULL
+            precio REAL NOT NULL,
+            stock INTEGER NOT NULL,
+            activo INTEGER DEFAULT 1,
+            categoria TEXT
         )
-    """)
-
-def agregar_categoria():
-    conn = get_connection()
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        ALTER TABLE productos
-            ADD categoria TEXT DEFAULT NULL
-    """)
+    ''')
     conn.commit()
     conn.close()
