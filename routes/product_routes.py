@@ -1,14 +1,12 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Blueprint, render_template, request, redirect, url_for
 from services import product_service
+from routes.auth_routes import login_requerido
 
 product_bp = Blueprint('products', __name__)
 
-def login_requerido():
-    return 'user' in session
-
 @product_bp.route('/index')
 def index():
-    if not login_requerido(): return redirect(url_for('products.login'))
+    if not login_requerido(): return redirect(url_for('auth.login'))
     return render_template('index.html')
 
 @product_bp.route('/productos')
@@ -19,7 +17,7 @@ def productos():
 @product_bp.route('/crear', methods=['GET', 'POST'])
 @product_bp.route('/editar/<int:id>', methods=['GET', 'POST'])
 def formulario_producto(id=None):
-    if not login_requerido(): return redirect(url_for('products.login'))
+    if not login_requerido(): return redirect(url_for('auth.login'))
     
     producto = None
     if id:
@@ -35,20 +33,8 @@ def formulario_producto(id=None):
 
 @product_bp.route('/eliminar/<int:id>', methods=['POST'])
 def eliminar(id):
-    if not login_requerido(): return redirect(url_for('products.login'))
+    if not login_requerido(): return redirect(url_for('auth.login'))
     product_service.eliminar_producto(id)
     return redirect(url_for('products.index'))
 
-@product_bp.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        if request.form.get('username') == 'admin' and request.form.get('password') == 'admin':
-            session['user'] = 'admin'
-            return redirect(url_for('products.index'))
-        return render_template('login.html', error='Credenciales inválidas')
-    return render_template('login.html')
-
-@product_bp.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('products.login'))
+# Las rutas de autenticación (login/logout) están en routes/auth_routes.py
